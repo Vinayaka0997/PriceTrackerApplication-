@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from smtplib import SMTP
 
+#extracting data from url
 url = "https://www.amazon.in/Apple-MacBook-Chip-13-inch-256GB/dp/B08N5W4NNB/ref=sr_1_1_sspa?crid=2J7Z2H4JU9MYE&dchild=1&keywords=macbook+air&qid=1635317913&sprefix=macbook%2Caps%2C353&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEyNjZMOUVOU0wwOE00JmVuY3J5cHRlZElkPUExMDQxMjcwMU5DV1JFTFhQS1g0TyZlbmNyeXB0ZWRBZElkPUEwNzA2OTgyM00zSFVJMlJEOTFTSiZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU="
 headers = {
     "user-agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
@@ -10,13 +11,14 @@ headers = {
 response = requests.get(url,headers=headers)
 soup = BeautifulSoup(response.content,"html.parser")
 
+#defining a function to check the price
 def check_price():
     title = soup.find(id="productTitle").get_text().strip()
     price = soup.find(id="priceblock_ourprice").text
     print("product name : ", title)
     print("product price : ", price)
 
-
+#using servers for sending mains to the user
 smtp_server = "smtp.gmail.com"
 port = 587
 email_id1 = "chvinayaka19@gmail.com"
